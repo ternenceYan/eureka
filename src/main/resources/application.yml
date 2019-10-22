@@ -1,8 +1,17 @@
 eureka:
   client:
     service-url:
+      # 设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址
       defaultZone: http://localhost:8761/eureka/
+    # 表示是否将自己注册到Eureka Server，默认未true,由于当前就是Eureka Server，所有不需要注册
     register-with-eureka: false
+    # 表示是否从Eureka Server获取注册信息，默认true，由于该项目是单点的EurekaServer，
+    # 不需要同步其他Eureka Server节点的数据，所以false
+    fetch-registry: false
+  server:
+    # false禁用自我保护模式 服务本来是好的，但是Eureka Server却把它给注销掉了。
+    #为了防止这种，Eureka Server采用了自我保护模式
+    enable-self-preservation: false
 spring:
   application:
     name: eureka
